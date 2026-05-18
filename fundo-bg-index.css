@@ -1,0 +1,7 @@
+/* Imagem de fundo para body do index.html */
+body {
+    background-image: url('assets/fundo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

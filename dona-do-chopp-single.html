@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dona do Chopp</title>
+  <meta name="description" content="Chopp Artesanal Direto da Bomba!" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: '#fbf9f4',
+            foreground: '#241a16',
+            primary: '#f5a524',
+            secondary: '#e74236',
+            muted: '#7b6f68',
+            card: '#ffffff',
+            border: 'rgba(36,26,22,.10)'
+          },
+          fontFamily: {
+            display: ['Georgia', 'Times New Roman', 'serif'],
+            body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 10px 30px rgba(0,0,0,.08)',
+            strong: '0 20px 50px rgba(0,0,0,.12)'
+          },
+          animation: {
+            floaty: 'floaty 4s ease-in-out infinite',
+            fadeUp: 'fadeUp .8s ease forwards'
+          },
+          keyframes: {
+            floaty: {
+              '0%,100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./fundo-bg.css" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #fbf9f4;
+      color: #241a16;
+    }
+
+    .container-max {
+      max-width: 1200px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: all .8s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .glass {
+      backdrop-filter: blur(12px);
+      background: rgba(251, 249, 244, .92);
+    }
+
+    .hero-bg {
+      background: linear-gradient(135deg, rgb(251, 249, 244) 0%, rgba(245, 165, 36, 0.08) 40%, rgba(245, 165, 36, 0.15) 70%, rgba(231, 66, 54, 0.06) 100%);
+    }
+
+    .section-warm {
+      background: linear-gradient(rgb(255, 255, 255) 0%, rgba(245, 165, 36, 0.06) 50%, rgb(255, 255, 255) 100%);
+    }
+
+    .section-red {
+      background: linear-gradient(rgb(255, 255, 255) 0%, rgba(231, 66, 54, 0.04) 30%, rgba(231, 66, 54, 0.08) 70%, rgb(255, 255, 255) 100%);
+    }
+
+    .stats-dark {
+      background: #241a16;
+    }
+
+    .gallery-item img {
+      transition: transform .5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(36, 26, 22, 0);
+      transition: background .3s ease;
+    }
+
+    .gallery-item:hover::after {
+      background: rgba(36, 26, 22, .08);
+    }
+
+    .testimonial-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(36, 26, 22, .15);
+      transition: all .25s ease;
+    }
+
+    .testimonial-dot.active {
+      width: 26px;
+      background: #f5a524;
+    }
+
+    .mobile-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .mobile-panel.open {
+      max-height: 500px;
+    }
+  </style>
+</head>
+
+<body class="font-body text-foreground">
+  <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass shadow-lg">
+    <div class="container-max mx-auto flex items-center justify-between py-3 px-4">
+      <a href="#hero" class="flex items-center gap-3">
+        <img src="./Dona do Chopp_files/dona-do-chopp-logo-CSrVeiSw.png" alt="Dona do Chopp" class="h-14 md:h-16" />
+      </a>
+      <nav class="hidden lg:flex items-center gap-6">
+        <a href="#hero" class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Início</a>
+        <a href="#como-funciona"
+          class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Como Funciona</a>
+        <a href="#praia" class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Na
+          Praia</a>
+        <a href="#eventos"
+          class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Eventos</a>
+        <a href="#equipamentos"
+          class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Equipamentos</a>
+        <a href="#galeria"
+          class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Galeria</a>
+        <a href="#contato"
+          class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Contato</a>
+        <a href="#contato"
+          class="inline-flex items-center justify-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Fale
+          Conosco</a>
+      </nav>
+      <button id="menuBtn"
+        class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-foreground shadow-soft"
+        aria-label="Abrir menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="mobile-panel lg:hidden border-t border-black/5 bg-white/95 px-4">
+      <div class="container-max mx-auto flex flex-col gap-3 py-4">
+        <a href="#hero" class="py-2">Início</a>
+        <a href="#como-funciona" class="py-2">Como Funciona</a>
+        <a href="#praia" class="py-2">Na Praia</a>
+        <a href="#eventos" class="py-2">Eventos</a>
+        <a href="#equipamentos" class="py-2">Equipamentos</a>
+        <a href="#galeria" class="py-2">Galeria</a>
+        <a href="#contato" class="py-2">Contato</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero-bg relative min-h-screen overflow-hidden pt-24 lg:pt-20 flex items-center">
+      <div class="absolute top-20 left-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl"></div>
+      <div class="absolute bottom-20 right-20 h-48 w-48 rounded-full bg-secondary/10 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 h-6 w-6 rounded-full bg-primary/30 animate-bounce"></div>
+      <div class="absolute bottom-1/3 left-1/4 h-4 w-4 rounded-full bg-secondary/20 animate-bounce"></div>
+      <div class="container-max mx-auto grid items-center gap-8 px-4 lg:grid-cols-2">
+        <div class="order-2 text-center lg:order-1 lg:text-left reveal is-visible">
+          <span class="mb-6 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">🍺
+            Experiência Única na Praia</span>
+          <h1 class="mb-6 font-display text-5xl leading-[0.95] text-foreground md:text-6xl lg:text-7xl">
+            Chopp Artesanal <span class="text-primary">Direto da</span> <span class="text-secondary">Bomba!</span>
+          </h1>
+          <p class="mb-8 max-w-xl text-lg leading-relaxed text-black/60 md:text-xl">
+            Servimos chopp geladíssimo direto de uma bomba vintage de combustível. O abastecimento mais refrescante que
+            você já viu — na praia, em festas ou no seu evento!
+          </p>
+          <div class="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+            <a href="#contato"
+              class="inline-flex items-center justify-center rounded-full bg-secondary px-8 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Fale
+              Conosco</a>
+            <a href="#como-funciona"
+              class="inline-flex items-center justify-center rounded-full border-2 border-primary bg-white px-8 py-4 text-lg font-bold text-primary transition hover:bg-primary hover:text-white">Saiba
+              Mais</a>
+          </div>
+        </div>
+        <div class="order-1 flex justify-center lg:order-2 reveal is-visible">
+          <img src="./Dona do Chopp_files/aed46108-0684-4c51-ad43-86fcb4425c8b.png" alt="Logo Dona do Chopp"
+            class="max-h-[80vh] w-full max-w-md object-contain drop-shadow-2xl lg:max-w-lg xl:max-w-xl animate-floaty" />
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="bg-white py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-16 text-center reveal">
+          <span class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">Como
+            Funciona</span>
+          <h2 class="font-display text-4xl text-foreground md:text-5xl">Simples, Rápido e <span
+              class="text-primary">Gelado!</span></h2>
+        </div>
+        <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+          <div class="group text-center reveal">
+            <div class="relative mx-auto mb-6">
+              <div
+                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                <span class="text-4xl">🍺</span>
+              </div>
+              <span
+                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">1</span>
+            </div>
+            <h3 class="mb-3 font-display text-2xl">Escolha o Sabor</h3>
+            <p class="leading-relaxed text-black/60">Pilsen, Weiss, IPA ou qualquer estilo artesanal. Temos opções para
+              todos os gostos!</p>
+          </div>
+          <div class="group text-center reveal">
+            <div class="relative mx-auto mb-6">
+              <div
+                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-transform duration-300 group-hover:scale-110">
+                <span class="text-4xl">⛽</span>
+              </div>
+              <span
+                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">2</span>
+            </div>
+            <h3 class="mb-3 font-display text-2xl">Abastecimento Vintage</h3>
+            <p class="leading-relaxed text-black/60">A bomba retrô serve o chopp geladíssimo direto da mangueira, como
+              num posto de verdade!</p>
+          </div>
+          <div class="group text-center reveal">
+            <div class="relative mx-auto mb-6">
+              <div
+                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                <span class="text-4xl">☀️</span>
+              </div>
+              <span
+                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">3</span>
+            </div>
+            <h3 class="mb-3 font-display text-2xl">Aproveite!</h3>
+            <p class="leading-relaxed text-black/60">Na praia, na festa ou no seu evento — a experiência mais
+              refrescante e divertida do Brasil!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="praia" class="section-warm py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+          <div class="reveal">
+            <span
+              class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">🏖️
+              Chopp na Praia</span>
+            <h2 class="mb-6 font-display text-4xl md:text-5xl">O Chopp Mais <span class="text-primary">Gelado</span> da
+              Praia</h2>
+            <p class="mb-6 text-lg leading-relaxed text-black/60">Imagine chegar na praia e encontrar uma bomba de
+              combustível vintage, toda estilizada, servindo chopp artesanal geladíssimo direto da mangueira. Parece
+              loucura? É a Dona do Chopp!</p>
+            <p class="mb-8 leading-relaxed text-black/60">Nossa operação itinerante traz o chopp perfeito para os
+              melhores points da praia. Pé na areia, brisa do mar e um chopp que sai direto da bomba — não existe
+              combinação melhor!</p>
+            <div class="flex gap-8">
+              <div>
+                <p class="font-display text-3xl text-primary">+5000</p>
+                <p class="text-sm text-black/60">Chopps servidos</p>
+              </div>
+              <div>
+                <p class="font-display text-3xl text-secondary">+200</p>
+                <p class="text-sm text-black/60">Dias de praia</p>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-3 reveal">
+            <div class="gallery-item relative overflow-hidden rounded-2xl md:col-span-2 md:row-span-2"><img
+                src="./Dona do Chopp_files/foto14-Br_54DAa.jpg" alt="Chopp na praia"
+                class="aspect-square h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto17-D2zJnCsW.jpg" alt="Bomba na praia"
+                class="aspect-square h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto13-D524lGP3.jpg" alt="Chopp na areia"
+                class="aspect-square h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto18-DnFYidqj.jpg" alt="Open bar na praia"
+                class="aspect-square h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl md:col-span-2"><img
+                src="./Dona do Chopp_files/foto15-CVIQtAau.jpg" alt="Calçadão"
+                class="aspect-square h-full w-full object-cover" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="eventos" class="bg-white py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-16 text-center reveal">
+          <span
+            class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">🎉
+            Festas & Eventos</span>
+          <h2 class="mb-4 font-display text-4xl md:text-5xl">Seu Evento com <span class="text-secondary">Chopp na
+              Bomba</span></h2>
+          <p class="mx-auto max-w-2xl text-lg text-black/60">Levamos a experiência Dona do Chopp para qualquer
+            celebração. É diversão garantida e chopp gelado do início ao fim!</p>
+        </div>
+        <div class="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            class="reveal rounded-2xl border border-black/10 bg-card p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-strong">
+            <h3 class="mb-2 font-display text-xl">Casamentos</h3>
+            <p class="text-sm leading-relaxed text-black/60">Surpreenda seus convidados com um open bar de chopp
+              artesanal servido na bomba vintage.</p>
+          </div>
+          <div
+            class="reveal rounded-2xl border border-black/10 bg-card p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-strong">
+            <h3 class="mb-2 font-display text-xl">Aniversários</h3>
+            <p class="text-sm leading-relaxed text-black/60">Comemore com estilo! O chopp na bomba é a atração que todo
+              mundo vai lembrar.</p>
+          </div>
+          <div
+            class="reveal rounded-2xl border border-black/10 bg-card p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-strong">
+            <h3 class="mb-2 font-display text-xl">Corporativos</h3>
+            <p class="text-sm leading-relaxed text-black/60">Happy hours, confraternizações e lançamentos com um toque
+              único e inesquecível.</p>
+          </div>
+          <div
+            class="reveal rounded-2xl border border-black/10 bg-card p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-strong">
+            <h3 class="mb-2 font-display text-xl">Festas & Shows</h3>
+            <p class="text-sm leading-relaxed text-black/60">Festivais, shows e eventos ao ar livre com o chopp mais
+              gelado e criativo da região.</p>
+          </div>
+        </div>
+        <div class="mb-10 grid grid-cols-2 gap-3 md:grid-cols-4 reveal">
+          <div class="gallery-item relative col-span-2 row-span-2 overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto11-CqM_2Kzw.jpg" alt="Casamento"
+              class="aspect-[3/4] h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto16-CTAVBT8d.jpg" alt="Debutante"
+              class="aspect-[3/4] h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto3-CjNd-PtE.jpg" alt="Evento"
+              class="aspect-[3/4] h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto5-BI2uIFeH.jpg" alt="Festa"
+              class="aspect-[3/4] h-full w-full object-cover" /></div>
+        </div>
+        <div class="text-center reveal"><a href="#contato"
+            class="inline-flex items-center justify-center rounded-full bg-secondary px-10 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Solicitar
+            Orçamento</a></div>
+      </div>
+    </section>
+
+    <section id="equipamentos" class="section-red relative overflow-hidden py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-16 text-center reveal">
+          <span
+            class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">🔧
+            Equipamentos Personalizados</span>
+          <h2 class="mb-4 font-display text-4xl md:text-5xl lg:text-6xl">Monte Seu Próprio <span
+              class="text-secondary">Negócio de Chopp</span></h2>
+          <p class="mx-auto max-w-3xl text-lg leading-relaxed text-black/60">Quer levar essa experiência incrível para a
+            sua cidade? Fabricamos todos os equipamentos personalizados com a sua marca, cores e identidade. Tudo pronto
+            para você começar a faturar!</p>
+        </div>
+        <div class="mx-auto mb-16 grid max-w-5xl gap-8 md:grid-cols-3">
+          <div
+            class="reveal relative overflow-hidden rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+            <h3 class="mb-3 font-display text-2xl">Bomba Vintage</h3>
+            <p class="mb-5 text-sm leading-relaxed text-black/60">Réplica artesanal de bomba de combustível antiga,
+              totalmente customizável. Funciona como chopeira completa com sistema de refrigeração embutido.</p>
+            <ul class="space-y-2 text-sm text-foreground/80">
+              <li>• Refrigeração embutida</li>
+              <li>• Personalização total</li>
+              <li>• Medidor retrô funcional</li>
+            </ul>
+          </div>
+          <div
+            class="reveal relative overflow-hidden rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+            <h3 class="mb-3 font-display text-2xl">Mangueira Premium</h3>
+            <p class="mb-5 text-sm leading-relaxed text-black/60">Mangueira profissional com acabamento vintage, bico
+              especial para servir chopp com a cremosidade perfeita e vazão controlada.</p>
+            <ul class="space-y-2 text-sm text-foreground/80">
+              <li>• Bico especial anti-espuma</li>
+              <li>• Acabamento retrô</li>
+              <li>• Fácil manutenção</li>
+            </ul>
+          </div>
+          <div
+            class="reveal relative overflow-hidden rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+            <h3 class="mb-3 font-display text-2xl">Barril Customizado</h3>
+            <p class="mb-5 text-sm leading-relaxed text-black/60">Barris com revestimento térmico e visual
+              personalizado. Mantém o chopp gelado por horas, ideal para operação na praia ou eventos.</p>
+            <ul class="space-y-2 text-sm text-foreground/80">
+              <li>• Isolamento térmico</li>
+              <li>• Design personalizado</li>
+              <li>• Capacidades variadas</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mb-16 reveal">
+          <h3 class="mb-8 text-center font-display text-2xl">Galeria de Equipamentos <span class="text-primary">Já
+              Produzidos</span></h3>
+          <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto1-BekAEJu7.jpg" alt="Bomba branca"
+                class="aspect-[3/4] h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto2-DcFX9YDb.jpg" alt="Bomba laranja"
+                class="aspect-[3/4] h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto9-vir4eu3S.jpg" alt="Bomba amarela"
+                class="aspect-[3/4] h-full w-full object-cover" /></div>
+            <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+                src="./Dona do Chopp_files/foto4-NFGCPL6F.jpg" alt="Bomba ao ar livre"
+                class="aspect-[3/4] h-full w-full object-cover" /></div>
+          </div>
+        </div>
+
+        <div class="mx-auto mb-12 grid max-w-3xl grid-cols-3 gap-6 text-center reveal">
+          <div>
+            <p class="font-display text-3xl text-secondary md:text-4xl">150+</p>
+            <p class="text-xs text-black/60 md:text-sm">Empreendedores Atendidos</p>
+          </div>
+          <div>
+            <p class="font-display text-3xl text-secondary md:text-4xl">40+</p>
+            <p class="text-xs text-black/60 md:text-sm">Cidades Alcançadas</p>
+          </div>
+          <div>
+            <p class="font-display text-3xl text-secondary md:text-4xl">98%</p>
+            <p class="text-xs text-black/60 md:text-sm">Satisfação dos Clientes</p>
+          </div>
+        </div>
+        <div class="text-center reveal"><a href="#contato"
+            class="inline-flex items-center justify-center rounded-full bg-secondary px-10 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">🔧
+            Quero Minha Bomba Personalizada</a></div>
+      </div>
+    </section>
+
+    <section class="stats-dark py-20 md:py-28 text-white">
+      <div class="container-max mx-auto px-4">
+        <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+          <div class="text-center reveal">
+            <div class="font-display text-4xl text-primary md:text-5xl">5000+</div>
+            <p class="mt-2 text-sm text-white/70">Chopps Servidos</p>
+          </div>
+          <div class="text-center reveal">
+            <div class="font-display text-4xl text-primary md:text-5xl">350+</div>
+            <p class="mt-2 text-sm text-white/70">Eventos Realizados</p>
+          </div>
+          <div class="text-center reveal">
+            <div class="font-display text-4xl text-primary md:text-5xl">40+</div>
+            <p class="mt-2 text-sm text-white/70">Cidades Atendidas</p>
+          </div>
+          <div class="text-center reveal">
+            <div class="font-display text-4xl text-primary md:text-5xl">98%</div>
+            <p class="mt-2 text-sm text-white/70">Satisfação</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-12 text-center reveal">
+          <span class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">💬
+            Depoimentos</span>
+          <h2 class="font-display text-4xl md:text-5xl">O Que Nossos Clientes <span class="text-primary">Dizem</span>
+          </h2>
+        </div>
+        <div class="relative mx-auto max-w-3xl reveal">
+          <div class="rounded-3xl border border-black/10 bg-card p-8 text-center shadow-soft md:p-12">
+            <p id="testimonialText" class="mb-8 text-lg italic leading-relaxed text-foreground/80 md:text-xl"></p>
+            <div
+              class="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 font-display text-2xl text-primary"
+              id="testimonialAvatar">C</div>
+            <p id="testimonialName" class="font-display text-xl text-foreground"></p>
+            <p id="testimonialRole" class="text-sm text-primary"></p>
+          </div>
+          <div class="mt-8 flex items-center justify-center gap-4">
+            <button id="prevTestimonial"
+              class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-black/10 transition hover:border-primary hover:text-primary">‹</button>
+            <div id="testimonialDots" class="flex items-center gap-2"></div>
+            <button id="nextTestimonial"
+              class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-black/10 transition hover:border-primary hover:text-primary">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="section-warm py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-12 text-center reveal">
+          <span class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">📸
+            Galeria</span>
+          <h2 class="font-display text-4xl md:text-5xl">Fotos & <span class="text-primary">Momentos</span></h2>
+        </div>
+        <div class="grid grid-cols-2 gap-3 md:grid-cols-4 reveal">
+          <div class="gallery-item relative col-span-2 row-span-2 overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto14-Br_54DAa.jpg" alt="Chopp na praia"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto1-BekAEJu7.jpg" alt="Bomba vintage branca"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto2-DcFX9YDb.jpg" alt="Bomba laranja"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto11-CqM_2Kzw.jpg" alt="Casamento"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto4-NFGCPL6F.jpg" alt="Bomba ao ar livre"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative col-span-2 overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto16-CTAVBT8d.jpg" alt="Debutante"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto6-CBvxeEeX.jpg" alt="Festa"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto12-DXxtJM0I.jpg" alt="Servindo chopp"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto9-vir4eu3S.jpg" alt="Bomba amarela completa"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto10-CWqCm07K.jpg" alt="Dona do Chopp em ação"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative col-span-2 overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto15-CVIQtAau.jpg" alt="Calçadão à noite"
+              class="aspect-square h-full w-full object-cover" /></div>
+          <div class="gallery-item relative overflow-hidden rounded-2xl"><img
+              src="./Dona do Chopp_files/foto13-D524lGP3.jpg" alt="Chopp na areia"
+              class="aspect-square h-full w-full object-cover" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="bg-white py-20 md:py-28">
+      <div class="container-max mx-auto px-4">
+        <div class="mb-16 text-center reveal">
+          <span
+            class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">📞
+            Contato</span>
+          <h2 class="mb-4 font-display text-4xl md:text-5xl">Fale com a <span class="text-secondary">Dona do
+              Chopp</span></h2>
+          <p class="mx-auto max-w-xl text-lg text-black/60">Quer contratar nosso serviço ou montar seu próprio negócio?
+            Entre em contato!</p>
+        </div>
+        <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
+          <form class="reveal space-y-5 rounded-2xl border border-black/10 bg-card p-8 shadow-soft"
+            onsubmit="event.preventDefault(); alert('Formulário de demonstração. Substitua pelo seu WhatsApp ou backend.');">
+            <div><label for="name" class="text-sm font-medium">Nome</label><input id="name"
+                class="mt-1.5 h-12 w-full rounded-xl border border-black/10 bg-white px-4 outline-none focus:border-primary"
+                placeholder="Seu nome" /></div>
+            <div><label for="phone" class="text-sm font-medium">Telefone / WhatsApp</label><input id="phone"
+                class="mt-1.5 h-12 w-full rounded-xl border border-black/10 bg-white px-4 outline-none focus:border-primary"
+                placeholder="(00) 00000-0000" /></div>
+            <div><label for="interest" class="text-sm font-medium">Interesse</label><select id="interest"
+                class="mt-1.5 h-12 w-full rounded-xl border border-black/10 bg-white px-4 outline-none focus:border-primary">
+                <option>Chopp na Praia</option>
+                <option>Festa / Evento</option>
+                <option>Equipamento Personalizado</option>
+                <option>Outro</option>
+              </select></div>
+            <div><label for="message" class="text-sm font-medium">Mensagem</label><textarea id="message" rows="4"
+                class="mt-1.5 w-full rounded-xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-primary"
+                placeholder="Conte-nos mais sobre o que precisa..."></textarea></div>
+            <button type="submit"
+              class="inline-flex w-full items-center justify-center rounded-full bg-secondary px-8 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.01] hover:bg-secondary/90">Enviar
+              Mensagem</button>
+          </form>
+          <div class="reveal flex flex-col justify-center space-y-8">
+            <div>
+              <h3 class="mb-6 font-display text-2xl">Nossos Canais</h3>
+              <div class="space-y-5">
+                <a href="#" class="group flex items-center gap-4">
+                  <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 text-green-600 transition-transform group-hover:scale-110">
+                    💬</div>
+                  <div>
+                    <p class="font-semibold">WhatsApp</p>
+                    <p class="text-sm text-black/60">(00) 00000-0000</p>
+                  </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4">
+                  <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-500/10 text-pink-600 transition-transform group-hover:scale-110">
+                    📷</div>
+                  <div>
+                    <p class="font-semibold">Instagram</p>
+                    <p class="text-sm text-black/60">@donadochopp</p>
+                  </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4">
+                  <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-110">
+                    📞</div>
+                  <div>
+                    <p class="font-semibold">Telefone</p>
+                    <p class="text-sm text-black/60">(00) 0000-0000</p>
+                  </div>
+                </a>
+                <div class="flex items-center gap-4">
+                  <div class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 text-secondary">📍
+                  </div>
+                  <div>
+                    <p class="font-semibold">Área de Atuação</p>
+                    <p class="text-sm text-black/60">Litoral e Região — Consulte disponibilidade</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-foreground py-12 text-white/80">
+    <div class="container-max mx-auto px-4">
+      <div class="mb-8 grid gap-8 md:grid-cols-3">
+        <div>
+          <img src="./Dona do Chopp_files/dona-do-chopp-logo-CSrVeiSw.png" alt="Dona do Chopp"
+            class="mb-4 h-14 brightness-0 invert opacity-90" />
+          <p class="text-sm leading-relaxed text-white/60">Chopp artesanal servido direto da bomba vintage. Inovação,
+            diversão e sabor em cada gole!</p>
+        </div>
+        <div>
+          <h4 class="mb-4 font-display text-xl text-white">Links Rápidos</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#hero" class="transition-colors hover:text-primary">Início</a></li>
+            <li><a href="#como-funciona" class="transition-colors hover:text-primary">Como Funciona</a></li>
+            <li><a href="#praia" class="transition-colors hover:text-primary">Na Praia</a></li>
+            <li><a href="#eventos" class="transition-colors hover:text-primary">Eventos</a></li>
+            <li><a href="#equipamentos" class="transition-colors hover:text-primary">Equipamentos</a></li>
+            <li><a href="#contato" class="transition-colors hover:text-primary">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-4 font-display text-xl text-white">Redes Sociais</h4>
+          <div class="flex gap-3">
+            <a href="#"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-primary">📷</a>
+            <a href="#"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-green-500">💬</a>
+            <a href="#"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-primary">📞</a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-6 text-center">
+        <p class="text-xs text-white/40">© 2026 Dona do Chopp. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const testimonials = [
+      {
+        text: '"A Dona do Chopp fez do nosso casamento uma festa inesquecível! Os convidados ficaram encantados com a bomba vintage servindo chopp. Foi a atração da noite!"',
+        name: 'Carlos Mendes',
+        role: 'Casamento na Praia',
+        avatar: 'C'
+      },
+      {
+        text: '"Todo mundo comentava a originalidade. Além de lindo, o atendimento foi impecável e o chopp estava geladíssimo do começo ao fim."',
+        name: 'Fernanda Lima',
+        role: 'Aniversário Particular',
+        avatar: 'F'
+      },
+      {
+        text: '"Levamos para um evento corporativo e virou o ponto alto da noite. Visual diferente, estrutura bonita e experiência memorável."',
+        name: 'Rafael Nunes',
+        role: 'Evento Corporativo',
+        avatar: 'R'
+      },
+      {
+        text: '"A praia já era linda, mas a Dona do Chopp deixou tudo ainda mais especial. Foi divertido, elegante e muito refrescante."',
+        name: 'Juliana Costa',
+        role: 'Open Bar na Praia',
+        avatar: 'J'
+      }
+    ];
+
+    let testimonialIndex = 0;
+    const textEl = document.getElementById('testimonialText');
+    const nameEl = document.getElementById('testimonialName');
+    const roleEl = document.getElementById('testimonialRole');
+    const avatarEl = document.getElementById('testimonialAvatar');
+    const dotsWrap = document.getElementById('testimonialDots');
+
+    function renderDots() {
+      dotsWrap.innerHTML = '';
+      testimonials.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'testimonial-dot' + (i === testimonialIndex ? ' active' : '');
+        dot.addEventListener('click', () => {
+          testimonialIndex = i;
+          renderTestimonial();
+        });
+        dotsWrap.appendChild(dot);
+      });
+    }
+
+    function renderTestimonial() {
+      const t = testimonials[testimonialIndex];
+      textEl.textContent = t.text;
+      nameEl.textContent = t.name;
+      roleEl.textContent = t.role;
+      avatarEl.textContent = t.avatar;
+      renderDots();
+    }
+
+    document.getElementById('prevTestimonial')?.addEventListener('click', () => {
+      testimonialIndex = (testimonialIndex - 1 + testimonials.length) % testimonials.length;
+      renderTestimonial();
+    });
+    document.getElementById('nextTestimonial')?.addEventListener('click', () => {
+      testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+      renderTestimonial();
+    });
+    renderTestimonial();
+  </script>
+</body>
+
+</html>
