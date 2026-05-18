@@ -6,7 +6,7 @@ services:
     pull_policy: build
     restart: always
     ports:
-      - "3000:3000"
+      - "3000:3001"
     networks:
       - pi_default
 networks:
