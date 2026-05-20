@@ -1,0 +1,14 @@
+services:
+  frontend-cadastroclientesddc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    restart: always
+    ports:
+      - "3002:3002"
+    networks:
+      - pi_default
+networks:
+  pi_default:
+    external: true
