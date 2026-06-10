@@ -23,7 +23,7 @@ function App() {
   const [showPopup, setShowPopup] = useState(false);
   const token = import.meta.env.VITE_API_TOKEN;
   useEffect(() => {
-    fetch('http://192.168.1.7:8009/api/client/', {
+    fetch('http://192.168.4.74:8009/api/client/', {
       headers: {
         'Authorization': `Token ${token}`
       }
