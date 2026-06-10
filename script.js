@@ -46,7 +46,7 @@
     }
 
     try {
-      const res = await fetch('http://192.168.1.7:8009/api/client/', {
+      const res = await fetch('http://192.168.4.74:8009/api/client/', {
         method: 'POST',
         headers: {
           'Authorization': 'Token 2684df84932ff4305e02a0e13f4656a258602122'
