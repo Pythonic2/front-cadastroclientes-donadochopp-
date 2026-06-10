@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     fetch('http://192.168.4.74:8009/api/client/', {
       headers: {
-        'Authorization': `Token ${token}`
+        'Authorization': `Token 2684df84932ff4305e02a0e13f4656a258602122`
       }
     })
       .then((res) => res.json())
